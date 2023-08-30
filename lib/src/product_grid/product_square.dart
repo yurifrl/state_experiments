@@ -52,8 +52,7 @@ class _ProductSquareState extends State<ProductSquare> {
       child: InkWell(
         onTap: widget.onTap,
         child: Center(
-          child: StreamBuilder<bool>(
-              stream: _bloc.isInCart, initialData: _bloc.isInCart.value, builder: (context, snapshot) => _createText(snapshot.data)),
+          child: StreamBuilder<bool>(stream: _bloc.isInCart, builder: (context, snapshot) => _createText(snapshot.data)),
         ),
       ),
     );
@@ -95,12 +94,12 @@ class _ProductSquareState extends State<ProductSquare> {
   /// A helper method that only builds the text of the [ProductSquare].
   ///
   /// The text will be underlined when [isInCart] is `true`.
-  Widget _createText(bool isInCart) {
+  Widget _createText(bool? isInCart) {
     return Text(
       widget.product.name,
       style: TextStyle(
         color: isDark(widget.product.color) ? Colors.white : Colors.black,
-        decoration: isInCart ? TextDecoration.underline : null,
+        decoration: isInCart == true ? TextDecoration.underline : null,
       ),
     );
   }

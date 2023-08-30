@@ -24,10 +24,8 @@ class ProductGrid extends StatelessWidget {
 
     return StreamBuilder<CatalogSlice>(
       stream: catalogBloc.slice,
-      initialData: catalogBloc.slice.value,
       builder: (context, snapshot) => GridView.builder(
         gridDelegate: _gridDelegate,
-        itemCount: snapshot.data.endIndex + _loadingSpace,
         itemBuilder: (context, index) => _createSquare(index, snapshot.data, catalogBloc, cartBloc),
       ),
     );
@@ -36,13 +34,13 @@ class ProductGrid extends StatelessWidget {
   /// Builds a square of the product on a given [index] in the catalog.
   /// Also sends the [index] to the [catalogBloc] so it can potentially load
   /// more data.
-  Widget _createSquare(int index, CatalogSlice slice, CatalogBloc catalogBloc, CartBloc cartBloc) {
+  Widget _createSquare(int index, CatalogSlice? slice, CatalogBloc catalogBloc, CartBloc cartBloc) {
     // Notify catalog BLoC of the latest index that the framework is trying
     // to build.
     catalogBloc.index.add(index);
 
     // Get data.
-    final product = slice.elementAt(index);
+    final product = slice!.elementAt(index);
 
     // Display spinner if waiting for data.
     if (product == null) {

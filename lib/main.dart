@@ -62,7 +62,6 @@ class MyHomePage extends StatelessWidget {
         actions: <Widget>[
           StreamBuilder<int>(
             stream: cartBloc.itemCount,
-            initialData: cartBloc.itemCount.value,
             builder: (context, snapshot) => CartButton(
               itemCount: snapshot.data ?? 0,
               key: ValueKey("asdas"),
